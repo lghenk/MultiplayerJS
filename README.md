@@ -4,7 +4,8 @@
 ![Dependencies](https://david-dm.org/lghenk/MultiplayerJS/status.svg)
 ![Dev Dependencies](https://david-dm.org/lghenk/MultiplayerJS/dev-status.svg)
 
-A peer-to-peer replay multiplayer service written in NodeJS
+A peer-to-peer replay multiplayer service written in NodeJS.
+This system wil be made to work well with [this matchmaking system](https://github.com/lghenk/MatchmakingJS) but using the correct format any custom system can be integrated with this multiplayer service. 
 
 This project also doubles as a school assignment (that I created my self).
 
@@ -29,6 +30,9 @@ Also because of its Non-Blocking IO operations makes this quite desirable for la
 ## Goals of this project
 - Have a functional multiplayer relay
 - Master & Slave servers
+- Get familiar with Git Flow
+- Gain more experience with socket programming and its architecture
+- Write a small wiki on how to interact with this system
 
 ## Planning 
 | | Monday | Tuesday | Wednesday | Thursday | Friday |
@@ -44,6 +48,7 @@ Also because of its Non-Blocking IO operations makes this quite desirable for la
 ### Step 2
 - The server can accept clients send by matchmaking
 - A basic form of packet forwarding
+- Start writing the documentary
 
 ### Step 3
 - Setup a test Unity Environment that can connect to matchmaking and multiplayer
