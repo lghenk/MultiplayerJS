@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/lghenk/MultiplayerJS/issues"
   },
-  "homepage": "https://github.com/lghenk/MultiplayerJS#readme"
+  "homepage": "https://github.com/lghenk/MultiplayerJS#readme",
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
 }
