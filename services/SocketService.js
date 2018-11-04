@@ -9,10 +9,6 @@ const uuidV4        = require('uuid/v4');
 
 // TODO: Add encryption option
 
-// DESIGN: Refactor to use json strings as data? (new format would be EVENTNAME|JSONSTRING)
-
-// FIXME: I've noticed a problem where if we write to the socket to fast that the stings get combined. termination character likely to be \n
-// That is an unexpected behaviour which should be fixed the use of a termination character
 class SocketService extends Dispatcher {
     constructor(port) {
         super();
@@ -21,64 +17,75 @@ class SocketService extends Dispatcher {
         this.initSocket();
     }
 
-    // TODO: Clean up this function
     initSocket() {
         this._server = net.createServer((socket) => {
+            socket.connected = true;
             this.emit('client.connect', { client: socket });
 
             // Generate a session id
+            // FIXME: Get this out of the socket service!
             socket.id = uuidV4();
-            socket.matchmakingData = {};
             socket.write('welcome|' + socket.id)
 
-            socket.send = (eventName, data) => {
-                // TODO: Implementation for the design: above
-                // This function will replace the direct socket.write and will automatically parse correct formating to the socket.write (friendlier and DRY use)
-                // Also this will handle the termination character
+            // I went for args seperated by , because not every language has JSON directly build in
+            socket.send = (eventName, ...args) => {
+                if(socket.connected) {
+                    let data = args.split(',');
+                    let payload = `${eventName}|${data}\n`;
+                    socket.write(payload)
+                } else {
+                    logger.warn('Tried to send message to disconnected socket', { socket: socket, event: eventName, data: data})
+                }
                 console.log(socket.id);
             }
 
-            socket.on('data', (data) => {
-
-                // Client send data, Emit a callback for this socket+
-                let dataParsed = data.toString('utf8').trim().split('|');
-                if (dataParsed.length == 0) {
-                    // We've gotten some incorrect input here
-                } else {
-                    let evnt = dataParsed[0];
-                    let args = [];
-                    if (dataParsed[1]) {
-                        args = dataParsed[1].split(',');
-                    }
-                    
-                    if (evnt == "ping") {
-                        socket.write('pong\r\n');
-                    }
-
-                    this.emit(`client.message.${dataParsed[0]}`, { client: socket, event: evnt, args: args, raw: data});
-
-                    // A wild card for all messages coming through
-                    this.emit('client.message', { client: socket, event: evnt, args: args, raw: data });
-                }
-            })
-
-            socket.on('end', () => {
-                this.emit('client.end', {client: socket});
-            })
-
-            socket.on('close', () => {
-                this.emit('client.disconnect', {client: socket});
-                socket.destroy();
-            })
-
-            socket.on('error', (err) => {
-                if (err.errno != 'ECONNRESET')
-                    logger.error(`Server running on port ${this._port} caught an error ${err.name}`, err, socket);
-
-                this.emit('client.error', {client: socket, error: err});
-            })
+            this.initSocketListeners(socket);         
         })
 
+        this.initServerListeners();
+    }
+
+    initSocketListeners(socket) {
+        socket.on('data', (data) => this.onSocketData(socket, data));
+
+        socket.on('end', () => {
+            this.emit('client.end', { client: socket });
+        })
+
+        socket.on('close', () => {
+            socket.connected = false;
+            this.emit('client.disconnect', { client: socket });
+            socket.destroy();
+        })
+
+        socket.on('error', (err) => {
+            if (err.errno != 'ECONNRESET')
+                logger.error(`Server running on port ${this._port} caught an error ${err.name}`, err, socket);
+
+            this.emit('client.error', { client: socket, error: err });
+        })
+    }
+
+    onSocketData(socket, data) {
+        // Client send data, Emit a callback for this socket+
+        let dataParsed = data.toString('utf8').trim().split('|');
+        if (dataParsed.length == 0) {
+            // We've gotten some incorrect input here
+        } else {
+            let evnt = dataParsed[0];
+            let args = dataParsed[1].split(',') || [];
+
+            if (evnt == "ping")
+                socket.write('pong\r\n');
+
+            this.emit(`client.message.${dataParsed[0]}`, { client: socket, event: evnt, args: args, raw: data });
+
+            // A wild card for all messages coming through
+            this.emit('client.message', { client: socket, event: evnt, args: args, raw: data });
+        }
+    }
+
+    initServerListeners() {
         this._server.on('close', () => {
             logger.info(`Server running on port ${this._port} has been closed`);
             this.emit('socket.closed');
@@ -87,8 +94,8 @@ class SocketService extends Dispatcher {
         this._server.on('error', (error) => {
             if (error.errno != 'ECONNRESET')
                 logger.fatal(`Server running on port ${this._port} errored with error ${error.name}`, error);
-                
-            this.emit('socket.error', {error: error});
+
+            this.emit('socket.error', { error: error });
         })
 
         this._server.on('listening', () => {
@@ -104,12 +111,6 @@ class SocketService extends Dispatcher {
     closeConnection() {
         this._server.unref();
         this._server.close();
-    }
-}
-
-function emit(data) {
-    if (typeof data == "object") {
-        this.socket.write(JSON.stringify(data));
     }
 }
 
