@@ -67,8 +67,10 @@ class SocketService extends Dispatcher {
     }
 
     onSocketData(socket, data) {
-        // Client send data, Emit a callback for this socket+
+        // Client send data, Emit a callback for this socket
         let dataParsed = data.toString('utf8').trim().split('|');
+
+        // TODO: Check last character for \n
         if (dataParsed.length == 0) {
             // We've gotten some incorrect input here
         } else {
