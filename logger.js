@@ -10,7 +10,7 @@ const logPath = `${__dirname}/logs`;
 
 // Create a stream where the logs will be written
 const logThrough = new stream.PassThrough();
-const logger = pino({ name: 'Matchmaking Service' }, logThrough);
+const logger = pino({ name: 'Multiplayer Service' }, logThrough);
 
 if (!fs.existsSync(logPath)) {
     fs.mkdirSync(logPath)
