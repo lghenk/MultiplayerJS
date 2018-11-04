@@ -1,0 +1,19 @@
+{
+  "name": "multiplayerjs",
+  "version": "0.0.1",
+  "description": "A multiplayer peer-to-peer relay service written in NodeJS",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lghenk/MultiplayerJS.git"
+  },
+  "author": "Timo Heijne",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/lghenk/MultiplayerJS/issues"
+  },
+  "homepage": "https://github.com/lghenk/MultiplayerJS#readme"
+}
