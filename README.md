@@ -1,6 +1,6 @@
 # MultiplayerJS
 
-![Build Image](https://travis-ci.org/lghenk/MultiplayerJS.svg?branch=master)
+![Build Image](https://travis-ci.com/lghenk/MultiplayerJS.svg?branch=develop)
 ![Dependencies](https://david-dm.org/lghenk/MultiplayerJS/status.svg)
 ![Dev Dependencies](https://david-dm.org/lghenk/MultiplayerJS/dev-status.svg)
 
