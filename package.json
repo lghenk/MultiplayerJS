@@ -17,6 +17,15 @@
   },
   "homepage": "https://github.com/lghenk/MultiplayerJS#readme",
   "devDependencies": {
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.5"
+  },
+  "dependencies": {
+    "dotenv": "^6.1.0",
+    "lodash": "^4.17.11",
+    "pino": "^5.8.0",
+    "pino-pretty": "^2.2.3",
+    "pino-tee": "^0.2.2",
+    "uuid": "^3.3.2"
   }
 }
