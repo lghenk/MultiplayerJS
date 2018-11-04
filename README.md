@@ -61,3 +61,4 @@ The above steps are for a basic multiplayer relay system which can and likely wi
 ## Sources
 - [NodeJS Clusters](https://nodejs.org/api/cluster.html)
 - [TCP Server](https://nodejs.org/api/net.html)
+- [Gitflow workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
