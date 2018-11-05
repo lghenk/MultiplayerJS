@@ -78,7 +78,7 @@ class SocketServer extends Dispatcher {
 
       if (evnt === 'ping') { socket.write('pong\r\n') }
 
-      this.emit(`client.message.${dataParsed[0]}`, { client: socket, event: evnt, args: args, raw: data })
+      this.emit(`client.message:${dataParsed[0]}`, { client: socket, event: evnt, args: args, raw: data })
 
       // A wild card for all messages coming through
       this.emit('client.message', { client: socket, event: evnt, args: args, raw: data })
