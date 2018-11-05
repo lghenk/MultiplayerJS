@@ -1,6 +1,6 @@
-const logger = require('./../logger')
+const logger = require('../logger')
 const net = require('net')
-const Dispatcher = require('./../modules/dispatcher/Dispatcher')
+const Dispatcher = require('../modules/dispatcher/Dispatcher')
 const uuidV4 = require('uuid/v4')
 
 /*
@@ -9,15 +9,15 @@ const uuidV4 = require('uuid/v4')
 
 // TODO: Add encryption option
 
-class SocketService extends Dispatcher {
+class SocketServer extends Dispatcher {
   constructor (port) {
     super()
 
     this._port = port
-    this.initSocket()
+    this.initServer()
   }
 
-  initSocket () {
+  initServer () {
     this._server = net.createServer((socket) => {
       socket.connected = true
       this.emit('client.connect', { client: socket })
@@ -103,14 +103,14 @@ class SocketService extends Dispatcher {
     })
   }
 
-  openConnection () {
+  startServer () {
     this._server.listen(this._port)
   }
 
-  closeConnection () {
+  stopServer () {
     this._server.unref()
     this._server.close()
   }
 }
 
-module.exports = SocketService
+module.exports = SocketServer
