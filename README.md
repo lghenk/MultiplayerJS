@@ -3,7 +3,7 @@
 ![Build Image](https://travis-ci.com/lghenk/MultiplayerJS.svg?branch=develop)
 ![Dependencies](https://david-dm.org/lghenk/MultiplayerJS/status.svg)
 ![Dev Dependencies](https://david-dm.org/lghenk/MultiplayerJS/dev-status.svg)
-[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 A peer-to-peer replay multiplayer service written in NodeJS.
 This system wil be made to work well with [this matchmaking system](https://github.com/lghenk/MatchmakingJS) but using the correct format any custom system can be integrated with this multiplayer service. 
