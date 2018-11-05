@@ -1,17 +1,17 @@
 class WhitelistItem {
-    constructor(ip, key) {
-        this.ip = ip;
-        this.key = key;
-    }
+  constructor (ip, key) {
+    this.ip = ip
+    this.key = key
+  }
 }
 
 const Whitelist = {
-    "Matchmaking": [
+  'Matchmaking': [
 
-    ],
-    "Multiplayer": [
+  ],
+  'Multiplayer': [
 
-    ]
+  ]
 }
 
-module.exports = Whitelist;
+module.exports = Whitelist
