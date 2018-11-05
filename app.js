@@ -7,17 +7,17 @@ const serverType = process.env.SERVER_TYPE || 'MASTER'
 const numCPUs = os.cpus().length
 
 if (cluster.isMaster) {
-  logger.info(`Initializing multiplayer ${serverType} server spawner. Detected ${numCPUs} CPU's. PID: ${process.pid}`)
+  logger.info(`Initializing multiplayer ${serverType} server spawner. Detected ${numCPUs} CPU's.`)
 
-  if(serverType === "MASTER") {
-    require('./routes/MasterRoutes');
-  } else if (serverType === "SLAVE") {
+  if (serverType === 'MASTER') {
+    require('./routes/MasterRoutes')
+  } else if (serverType === 'SLAVE') {
     require('./routes/SlaveRoutes')
   } else {
     logger.fatal('Server Type not found!')
   }
 } else {
-  logger.info(`Initializing cluster worker for game server. PID: ${process.pid}`)
+  logger.info(`Game Cluster ${cluster.worker.id}: Initializing`)
 
-  require('./routes/PlayerRoutes');
+  require('./routes/PlayerRoutes')
 }
