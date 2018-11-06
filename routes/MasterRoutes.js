@@ -1,7 +1,7 @@
 const logger = require('../logger')
 const SocketServer = require('../services/SocketServer')
 
-const ClusterSpawner = require('../modules/ClusterSpawner')
+const MatchController = require('../modules/MatchController')
 
 const socket = new SocketServer(process.env.MASTER_PORT || 2000)
 
