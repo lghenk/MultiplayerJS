@@ -3,9 +3,15 @@ const cluster = require('cluster')
 
 const workers = []
 
-module.exports.InitializeCluster = (match_id) => {
-  // Here we 
+module.exports.InitializeCluster = (match_id, auth_token) => {
   let worker = cluster.fork();
+
+  let port = parseInt(process.env.CLUSTER_PORT_START) + parseInt(process.env.PORT_INCREASE * workers.length) || 0;
+  worker.send({event: 'init', port: port, matchId: match_id, authToken: auth_token})
+
+  workers.push(worker);
+
+  return port;
 }
 
 cluster.on('online', (worker) => {
@@ -13,13 +19,13 @@ cluster.on('online', (worker) => {
 })
 
 cluster.on('exit', (worker) => {
+  workers.splice(workers.indexOf(worker), 1); // Remove worker from tracking list
   if (worker.process.exitCode === 0) {
     // Worker exited peacefully
     logger.info(`Game cluster ${worker.id} gracefully shutdown.`)
   } else {
     logger.error(`Game cluster ${worker.id} just crashed.`, {exit_code: worker.process.exitCode})
+
     // A game just crashed.
   }
 })
-
-this.InitializeCluster(999);
