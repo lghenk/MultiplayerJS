@@ -17,7 +17,5 @@ if (cluster.isMaster) {
     logger.fatal('Server Type not found!')
   }
 } else {
-  logger.info(`Game Cluster ${cluster.worker.id}: Initializing`)
-
-  require('./routes/PlayerRoutes')
+  require('./routes/ServerRoutes')
 }
