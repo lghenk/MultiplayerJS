@@ -2,6 +2,8 @@ const ClusterSpawner = require('./ClusterSpawner')
 const logger         = require('../logger')
 const uuidV4         = require('uuid/v4')
 
+const matches = [];
+
 // [0] = Matchmaking Reference ID
 module.exports.InitializeMatch = (data) => {
   // Generate a match ID & Auth Token
