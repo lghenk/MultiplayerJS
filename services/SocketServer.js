@@ -8,6 +8,7 @@ const uuidV4 = require('uuid/v4')
  */
 
 // TODO: Add encryption option
+// TODO: Prevent against replay attack
 
 class SocketServer extends Dispatcher {
   constructor (port) {
@@ -92,7 +93,7 @@ class SocketServer extends Dispatcher {
     })
 
     this._server.on('error', (error) => {
-      if (error.errno !== 'ECONNRESET') { logger.fatal(`Server running on port ${this._server.address().port} errored with error ${error.name}`, error) }
+      if (error.errno !== 'ECONNRESET') { logger.fatal(`Server attempted to run on port ${this._port} errored with error ${error.name}`, error) }
 
       this.emit('socket.error', { error: error })
     })
