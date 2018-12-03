@@ -11,7 +11,7 @@ module.exports.InitializeCluster = (match_id, auth_token) => {
 
   workers.push(worker)
 
-  return port
+  return [port, worker]
 }
 
 cluster.on('online', (worker) => {
