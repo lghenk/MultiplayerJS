@@ -14,5 +14,5 @@ socket.on('data', (data) => {
   console.log(data.toString('utf8') + '|-|')
   let d = data.toString('utf8').trim().split('|')
 
-  if (d[0] == 'welcome') { socket.write('match.initialize|daref') }
+  if (d[0] == 'welcome') { socket.write('match.initialize') }
 })
