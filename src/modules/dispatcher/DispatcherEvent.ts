@@ -16,9 +16,9 @@ class DispatcherEvent {
       arr.shift()
 
       // Because of .once we can also receive one argument with an array inside.. Remove excess array
-      if (typeof arr[0] === 'object') { arr = arr[0] }
+      let obj = (typeof arr[0] === 'object') ? arr[0] : arr;
 
-      this.callbacks.push(arr)
+      this.callbacks.push(obj)
     }
   }
 
@@ -28,12 +28,12 @@ class DispatcherEvent {
     arr.shift()
 
     // Because of .once we can also receive one argument with an array inside.. Remove excess array
-    if (typeof arr[0] === 'object') { arr = arr[0] }
+    let obj = (typeof arr[0] === 'object') ? arr[0] : arr;
 
     let index = -1
     for (let i = 0; i < this.callbacks.length; i++) {
       const element = this.callbacks[i]
-      if (_.isEqual(arr, element)) {
+      if (_.isEqual(obj, element)) {
         index = i
         break
       }

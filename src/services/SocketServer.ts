@@ -10,7 +10,7 @@ import uuidV4 from 'uuid/v4'
 // TODO: Add encryption option
 // TODO: Prevent against replay attack
 
-class SocketServer extends Dispatcher {
+export class SocketServer extends Dispatcher {
 
   _port: number;
   _server: any;

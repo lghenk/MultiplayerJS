@@ -1,7 +1,6 @@
-const logger = require('../logger')
-const SocketServer = require('../services/SocketServer')
-
-const MatchController = require('../modules/MatchController')
+import logger from '../logger'
+import { SocketServer } from '../services/SocketServer'
+import * as MatchController from './../modules/MatchController'
 
 const socket = new SocketServer(process.env.MASTER_PORT || 2000)
 

@@ -6,7 +6,7 @@ const stream = require('stream')
 // Environment variables
 const cwd = process.cwd()
 const { env } = process
-const logPath = `${__dirname}/logs`
+const logPath = `${__dirname}/../logs`
 
 // Create a stream where the logs will be written
 const logThrough = new stream.PassThrough()

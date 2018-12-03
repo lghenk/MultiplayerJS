@@ -1,6 +1,6 @@
-const logger = require('../logger')
-const SocketServer = require('../services/SocketServer')
-const cluster = require('cluster')
+import logger from '../logger'
+import { SocketServer } from '../services/SocketServer'
+import * as cluster from 'cluster'
 
 const socket = new SocketServer(0)
 
