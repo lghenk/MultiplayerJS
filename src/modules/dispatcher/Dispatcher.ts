@@ -1,11 +1,13 @@
 const DispatcherEvent = require('./DispatcherEvent')
 
-class Dispatcher {
+export default class Dispatcher {
+  events = {};
+
   constructor () {
     this.events = {}
   }
 
-  on (eventName) {
+  on (eventName, ...callbacks) {
     let event = this.events[eventName]
 
     if (!event) {
@@ -16,7 +18,7 @@ class Dispatcher {
     event.registerCallback(arguments)
   }
 
-  off (eventName) {
+  off (eventName, ...callbacks) {
     let event = this.events[eventName]
 
     // Check if event exists, otherwise there is no callback to be unregistered

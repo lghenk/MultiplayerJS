@@ -4,7 +4,10 @@
   "description": "A multiplayer peer-to-peer relay service written in NodeJS",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --exit"
+    "build": "tsc",
+    "dev": "ts-node ./src/app.ts",        
+    "start": "nodemon ./src/app.js",
+    "prod": "npm run build && npm run start"
   },
   "repository": {
     "type": "git",

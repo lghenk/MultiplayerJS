@@ -1,6 +1,9 @@
 const _ = require('lodash')
 
 class DispatcherEvent {
+  eventName: string;
+  callbacks = [];
+
   constructor (eventName) {
     this.eventName = eventName
     this.callbacks = []

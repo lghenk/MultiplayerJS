@@ -1,7 +1,7 @@
-const logger = require('../logger')
-const net = require('net')
-const Dispatcher = require('../modules/dispatcher/Dispatcher')
-const uuidV4 = require('uuid/v4')
+import logger from '../logger'
+import * as net from 'net';
+import Dispatcher from '../modules/dispatcher/Dispatcher';
+import uuidV4 from 'uuid/v4'
 
 /*
  * Keeping in mind the idea that we might need to open different sockets in the future
@@ -11,6 +11,10 @@ const uuidV4 = require('uuid/v4')
 // TODO: Prevent against replay attack
 
 class SocketServer extends Dispatcher {
+
+  _port: number;
+  _server: any;
+
   constructor (port) {
     super()
 
@@ -19,7 +23,7 @@ class SocketServer extends Dispatcher {
   }
 
   initServer () {
-    this._server = net.createServer((socket) => {
+    this._server = net.createServer((socket: any) => {
       socket.connected = true
       this.emit('client.connect', { client: socket })
 
