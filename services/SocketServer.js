@@ -8,6 +8,7 @@ const uuidV4 = require('uuid/v4')
  */
 
 // TODO: Add encryption option
+// TODO: Prevent against replay attack
 
 class SocketServer extends Dispatcher {
   constructor (port) {
@@ -30,13 +31,12 @@ class SocketServer extends Dispatcher {
       // I went for args seperated by , because not every language has JSON directly build in
       socket.send = (eventName, ...args) => {
         if (socket.connected) {
-          let data = args.split(',')
+          let data = args.toString()
           let payload = `${eventName}|${data}\n`
           socket.write(payload)
         } else {
           logger.warn('Tried to send message to disconnected socket', { socket: socket, event: eventName, data: args })
         }
-        console.log(socket.id)
       }
 
       this.initSocketListeners(socket)
@@ -74,7 +74,8 @@ class SocketServer extends Dispatcher {
       // We've gotten some incorrect input here
     } else {
       let evnt = dataParsed[0]
-      let args = dataParsed[1].split(',') || []
+      console.log(dataParsed)
+      let args = (dataParsed[1]) ? dataParsed[1].split(',') : []
 
       if (evnt === 'ping') { socket.write('pong\r\n') }
 
@@ -87,18 +88,18 @@ class SocketServer extends Dispatcher {
 
   initServerListeners () {
     this._server.on('close', () => {
-      logger.info(`Server running on port ${this._port} has been closed`)
+      logger.info(`Server running on port ${this._server.address().port} has been closed`)
       this.emit('socket.closed')
     })
 
     this._server.on('error', (error) => {
-      if (error.errno !== 'ECONNRESET') { logger.fatal(`Server running on port ${this._port} errored with error ${error.name}`, error) }
+      if (error.errno !== 'ECONNRESET') { logger.fatal(`Server attempted to run on port ${this._port} errored with error ${error.name}`, error) }
 
       this.emit('socket.error', { error: error })
     })
 
     this._server.on('listening', () => {
-      logger.info(`Server running on port ${this._port} is now listening for connections`)
+      logger.info(`Server running on port ${this._server.address().port} is now listening for connections`)
       this.emit('socket.listening')
     })
   }
