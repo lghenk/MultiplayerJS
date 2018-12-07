@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node ./src/app.ts --watch",
-    "start": "nodemon ./src/app.js",
+    "dev:build": "tsc --watch",
+    "dev:start": "devtool ./src/app.js --watch",
     "prod": "npm run build && npm run start",
     "lint": "eslint src --ext ts",
     "lint:fix": "eslint src --ext ts --fix"
