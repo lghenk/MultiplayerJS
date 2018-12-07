@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node ./src/app.ts --watch",        
+    "dev": "ts-node ./src/app.ts --watch",
     "start": "nodemon ./src/app.js",
     "prod": "npm run build && npm run start",
     "lint": "eslint src --ext ts",
@@ -22,12 +22,17 @@
   },
   "homepage": "https://github.com/lghenk/MultiplayerJS#readme",
   "devDependencies": {
+    "@types/dotenv": "^6.1.0",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.11",
+    "@types/pino": "^5.8.3",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.5",
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^10.12.11"
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.1"
   },
   "dependencies": {
+    "@types/uuid": "^3.4.4",
     "dotenv": "^6.1.0",
     "lodash": "^4.17.11",
     "pino": "^5.8.0",

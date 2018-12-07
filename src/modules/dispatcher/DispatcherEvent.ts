@@ -1,11 +1,11 @@
 const _ = require('lodash');
 
-class DispatcherEvent {
+export default class DispatcherEvent {
   eventName: string;
 
-  callbacks = [];
+  callbacks: any = [];
 
-  constructor(eventName) {
+  constructor(eventName: string) {
     this.eventName = eventName;
     this.callbacks = [];
   }
@@ -45,10 +45,10 @@ class DispatcherEvent {
     this.callbacks.splice(index, 1);
   }
 
-  fire(data) {
+  fire(data: any) {
     // Get a copy of the callbacks incase it gets edited mid emit
     const cbacks = this.callbacks.slice();
-    cbacks.forEach((callback) => {
+    cbacks.forEach((callback: any) => {
       const cbs = callback.slice();
       const cb = cbs[0]; // First callback
       cbs.shift();
@@ -59,7 +59,7 @@ class DispatcherEvent {
     });
   }
 
-  fireNext(data, callbackStack) {
+  fireNext(data: any, callbackStack: any[]) {
     const cbs = callbackStack.slice();
     const cb = cbs[0];
     cbs.shift();

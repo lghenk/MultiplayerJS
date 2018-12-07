@@ -10,7 +10,7 @@ const logPath = `${__dirname}/../logs`
 
 // Create a stream where the logs will be written
 const logThrough = new stream.PassThrough()
-const logger = pino({ name: 'Multiplayer Service' }, logThrough)
+export const logger = pino({ name: 'Multiplayer Service' }, logThrough)
 
 if (!fs.existsSync(logPath)) {
   fs.mkdirSync(logPath)
@@ -27,10 +27,8 @@ const child = childProcess.spawn(process.execPath, [
 ], { cwd, env })
 
 logThrough.pipe(child.stdin)
-logThrough.on('data', (data) => {
+logThrough.on('data', (data: any) => {
   console.log(data.toString().trim())
 })
 
 logger.level = process.env.LOG_LEVEL || 'fatal'
-
-module.exports = logger

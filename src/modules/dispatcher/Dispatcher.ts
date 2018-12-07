@@ -1,13 +1,13 @@
-const DispatcherEvent = require('./DispatcherEvent');
+import DispatcherEvent from './DispatcherEvent'
 
 export default class Dispatcher {
-  events = {};
+  events: any = {};
 
   constructor() {
     this.events = {};
   }
 
-  on(eventName, ...callbacks) {
+  on(eventName: string, ...callbacks: any) {
     let event = this.events[eventName];
 
     if (!event) {
@@ -18,7 +18,7 @@ export default class Dispatcher {
     event.registerCallback(arguments);
   }
 
-  off(eventName, ...callbacks) {
+  off(eventName: string, ...callbacks: any) {
     const event = this.events[eventName];
 
     // Check if event exists, otherwise there is no callback to be unregistered
@@ -27,18 +27,18 @@ export default class Dispatcher {
     if (event.GetCallbackCount() === 0) { delete this.events[eventName]; }
   }
 
-  once(eventName) {
+  once(eventName: string) {
     const arr = Array.from(arguments);
     arr.shift();
 
     this.on(eventName, arr);
-    this.on(eventName, (data) => {
+    this.on(eventName, (data: any) => {
       // Hook onto that event and delete callback when event is fired
       this.off(eventName, arr);
     });
   }
 
-  emit(eventName, data = null) {
+  emit(eventName: string, data: any = null) {
     const event = this.events[eventName];
 
     if (event) { event.fire(data); }

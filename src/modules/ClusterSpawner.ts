@@ -1,12 +1,12 @@
-import * as cluster from 'cluster';
-import logger from '../logger';
+import cluster from 'cluster';
+import {logger} from '../logger';
 
-const workers = [];
+const workers: any[] = [];
 
-export function InitializeCluster(match_id, auth_token): [number, any] {
+export function InitializeCluster(match_id: string, auth_token: string): [number, any] {
   const worker = cluster.fork();
 
-  const port = parseInt(process.env.CLUSTER_PORT_START) + parseInt(process.env.PORT_INCREASE) * workers.length || 0;
+  const port = parseInt(String(process.env.CLUSTER_PORT_START)) + parseInt(String(process.env.PORT_INCREASE)) * workers.length || 0;
   worker.send({
     event: 'init', port, matchId: match_id, authToken: auth_token,
   });

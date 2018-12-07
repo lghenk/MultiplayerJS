@@ -1,9 +1,5 @@
-class MatchModel {
-  matchId = 0;
-
-  numExpectedPlayers = 0;
-
-  players = [];
+export interface MatchModel {
+  matchId: number;
+  numExpectedPlayers: number;
+  players: any[];
 }
-
-module.exports = MatchModel;

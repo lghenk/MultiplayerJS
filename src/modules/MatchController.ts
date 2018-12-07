@@ -1,11 +1,11 @@
 import uuidV4 from 'uuid/v4';
 import * as ClusterSpawner from './ClusterSpawner';
-import logger from '../logger';
+import {logger} from '../logger';
 
 const matches = [];
 
 // [0] = Matchmaking Reference ID, [1] = Expected num players, [2] = max players
-export function InitializeMatch(data) {
+export function InitializeMatch(data: any) {
   // Generate a match ID & Auth Token
   // Send a signal to cluster spawner for a game cluster
   // Send ID, Auth token, IP & Port back to matchmaking

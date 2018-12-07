@@ -1,6 +1,6 @@
 import * as net from 'net';
 import uuidV4 from 'uuid/v4';
-import logger from '../logger';
+import {logger} from '../logger';
 import Dispatcher from '../modules/dispatcher/Dispatcher';
 
 /*
@@ -10,12 +10,12 @@ import Dispatcher from '../modules/dispatcher/Dispatcher';
 // TODO: Add encryption option
 // TODO: Prevent against replay attack
 
-export class SocketServer extends Dispatcher {
+export default class SocketServer extends Dispatcher {
   _port: number;
 
   _server: any;
 
-  constructor(port) {
+  constructor(port: number) {
     super();
 
     this._port = port;
@@ -33,7 +33,7 @@ export class SocketServer extends Dispatcher {
       socket.write(`welcome|${socket.id}`);
 
       // I went for args seperated by , because not every language has JSON directly build in
-      socket.send = (eventName, ...args) => {
+      socket.send = (eventName: string, ...args: any) => {
         if (socket.connected) {
           const data = args.toString();
           const payload = `${eventName}|${data}\n`;
@@ -49,8 +49,8 @@ export class SocketServer extends Dispatcher {
     this.initServerListeners();
   }
 
-  initSocketListeners(socket) {
-    socket.on('data', data => this.onSocketData(socket, data));
+  initSocketListeners(socket: any) {
+    socket.on('data', (data: any) => this.onSocketData(socket, data));
 
     socket.on('end', () => {
       this.emit('client.end', { client: socket });
@@ -62,14 +62,14 @@ export class SocketServer extends Dispatcher {
       socket.destroy();
     });
 
-    socket.on('error', (err) => {
+    socket.on('error', (err: any) => {
       if (err.errno !== 'ECONNRESET') { logger.error(`Server running on port ${this._port} caught an error ${err.name}`, err, socket); }
 
       this.emit('client.error', { client: socket, error: err });
     });
   }
 
-  onSocketData(socket, data) {
+  onSocketData(socket: any, data: any) {
     // Client send data, Emit a callback for this socket
     const dataParsed = data.toString('utf8').trim().split('|');
 
@@ -100,7 +100,7 @@ export class SocketServer extends Dispatcher {
       this.emit('socket.closed');
     });
 
-    this._server.on('error', (error) => {
+    this._server.on('error', (error: any) => {
       if (error.errno !== 'ECONNRESET') { logger.fatal(`Server attempted to run on port ${this._port} errored with error ${error.name}`, error); }
 
       this.emit('socket.error', { error });
