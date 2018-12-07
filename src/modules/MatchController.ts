@@ -1,6 +1,6 @@
 import uuidV4 from 'uuid/v4';
 import * as ClusterSpawner from './ClusterSpawner';
-import {logger} from '../logger';
+import { logger } from '../logger';
 
 const matches = [];
 

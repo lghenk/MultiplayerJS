@@ -1,14 +1,15 @@
 import * as dotenv from 'dotenv';
-dotenv.config();
 
 import * as cluster from 'cluster';
 import * as os from 'os';
 
-import {logger} from './logger';
+import { logger } from './logger';
 
 import * as MasterRoutes from './routes/MasterRoutes';
 import * as ServerRoutes from './routes/ServerRoutes';
 import * as SlaveRoutes from './routes/SlaveRoutes';
+
+dotenv.config();
 
 const serverType = process.env.SERVER_TYPE || 'MASTER';
 const numCPUs = os.cpus().length;

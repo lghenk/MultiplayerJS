@@ -5,7 +5,7 @@ interface WhitelistItem {
 
 const Whitelist = {
   Matchmaking: <WhitelistItem[]> [],
-  MultiplayerNode: <WhitelistItem[]> []
-}
+  MultiplayerNode: <WhitelistItem[]> [],
+};
 
-module.exports = Whitelist
+module.exports = Whitelist;

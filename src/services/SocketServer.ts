@@ -1,6 +1,6 @@
 import * as net from 'net';
 import uuidV4 from 'uuid/v4';
-import {logger} from '../logger';
+import { logger } from '../logger';
 import Dispatcher from '../modules/dispatcher/Dispatcher';
 
 /*

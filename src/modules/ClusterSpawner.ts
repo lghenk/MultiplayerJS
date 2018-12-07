@@ -1,5 +1,5 @@
 import cluster from 'cluster';
-import {logger} from '../logger';
+import { logger } from '../logger';
 
 const workers: any[] = [];
 

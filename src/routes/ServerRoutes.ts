@@ -1,5 +1,5 @@
 import * as cluster from 'cluster';
-import {logger} from '../logger';
+import { logger } from '../logger';
 import SocketServer from '../services/SocketServer';
 
 export function Init() {

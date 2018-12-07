@@ -1,4 +1,4 @@
-import DispatcherEvent from './DispatcherEvent'
+import DispatcherEvent from './DispatcherEvent';
 
 export default class Dispatcher {
   events: any = {};

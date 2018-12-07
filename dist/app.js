@@ -8,13 +8,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var dotenv = __importStar(require("dotenv"));
-dotenv.config();
 var cluster = __importStar(require("cluster"));
 var os = __importStar(require("os"));
 var logger_1 = require("./logger");
 var MasterRoutes = __importStar(require("./routes/MasterRoutes"));
 var ServerRoutes = __importStar(require("./routes/ServerRoutes"));
 var SlaveRoutes = __importStar(require("./routes/SlaveRoutes"));
+dotenv.config();
 var serverType = process.env.SERVER_TYPE || 'MASTER';
 var numCPUs = os.cpus().length;
 if (cluster.isMaster) {
